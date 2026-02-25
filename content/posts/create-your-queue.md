@@ -82,7 +82,7 @@ There are many well known KV Stores in native Go Implementation like BadgerDB(us
 
 Here LSM tree KV comes in handy for the current use case because it has levels of storage, Initially it stores the message on RAM(Memtable) and flushes it to disk(SSTables) eventually.
 
-![alt text](/images/create-your-own-queue/LSM_Tree_Writes.png)
+![alt text](/blogs/images/create-your-own-queue/LSM_Tree_Writes.png)
 *Img 1: LSM Implementation, Source: https://darchuletajr.com/blog/lsm-trees-memtables-sorted-string-tables-introduction*
 
 ### Server Layer
@@ -91,7 +91,7 @@ To create a cohesive system we would require a server and client with a protocol
 
 ## Implementation
 
-![alt text](/images/create-your-own-queue/scheduler_diagram.png)
+![alt text](/blogs/images/create-your-own-queue/scheduler_diagram.png)
 *Img 2: Implementation architecture*
 
 The flow starts by sending a event or a message which consists of QueueName, user data as Message and TTL a timestamp in Milliseconds. As discussed the data is exchanged via GRPC Streams.
