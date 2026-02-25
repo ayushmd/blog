@@ -31,8 +31,8 @@ jobs:
       # these files under a "blogs" folder so the site works at .../blogs/
       - name: Prepare deploy folder
         run: |
-          mkdir -p deploy/blogs
-          cp -r out/* deploy/blogs/
+          mkdir -p deploy/
+          cp -r out/* deploy/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
