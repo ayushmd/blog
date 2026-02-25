@@ -27,15 +27,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Next exports to ./out with paths like /blogs/...; GitHub Pages needs
-      # these files under a "blogs" folder so the site works at .../blogs/
-      - name: Prepare deploy folder
-        run: |
-          mkdir -p deploy/
-          cp -r out/* deploy/
-
+      # Repo name "blogs" → Pages root is ayushmd.github.io/blogs/
+      # Publish out/ at branch root so index.html and _next/ live at .../blogs/
+      # (no extra blogs/ subfolder, or you get .../blogs/blogs/ and broken assets)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./deploy
+          publish_dir: ./out
+          force_orphan: true
