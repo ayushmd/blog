@@ -1,0 +1,41 @@
+name: Deploy Next.js blog to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Next exports to ./out with paths like /blogs/...; GitHub Pages needs
+      # these files under a "blogs" folder so the site works at .../blogs/
+      - name: Prepare deploy folder
+        run: |
+          mkdir -p deploy/blogs
+          cp -r out/* deploy/blogs/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy
