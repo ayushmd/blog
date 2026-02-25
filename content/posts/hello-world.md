@@ -24,8 +24,4 @@ description: "A short description for SEO."
 ---
 ```
 
-```
-lorem ipsum
-```
-
 Then write your content below. That's it!
