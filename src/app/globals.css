@@ -7,6 +7,7 @@
   --muted: #5c5348;
   --border: #e8e0d5;
   --surface: #ebe6df;
+  --code-bg: #e2ddd4;
   --accent: #0d5c54;
   --accent-hover: #0f766e;
 }
@@ -25,6 +26,7 @@
   --muted: #a3a3a3;
   --border: #27272a;
   --surface: #171717;
+  --code-bg: #1a1a1a;
   --accent: #93c5fd;
   --accent-hover: #bfdbfe;
 }
@@ -72,8 +74,17 @@ body {
   padding-left: 1.5rem;
   color: var(--foreground);
 }
+.prose ul {
+  list-style-type: disc !important;
+  list-style-position: outside !important;
+}
+.prose ol {
+  list-style-type: decimal !important;
+  list-style-position: outside !important;
+}
 .prose li {
   margin-bottom: 0.25rem;
+  display: list-item !important;
 }
 .prose a {
   color: var(--accent);
@@ -81,6 +92,55 @@ body {
 }
 .prose a:hover {
   color: var(--accent-hover);
+}
+.prose .table-wrapper {
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.prose table {
+  width: 100%;
+  min-width: min-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9375rem;
+}
+.prose th,
+.prose td {
+  padding: 0.5rem 0.75rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.prose th:first-child,
+.prose td:first-child {
+  border-left: 1px solid var(--border);
+}
+.prose thead th {
+  border-top: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--foreground);
+  background: var(--surface);
+}
+.prose thead tr:first-child th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+.prose thead tr:first-child th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+.prose td {
+  color: var(--foreground);
+}
+.prose tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem;
+}
+.prose tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem;
+}
+.prose tbody tr:hover td {
+  background: var(--surface);
 }
 .prose blockquote {
   border-left: 4px solid var(--border);
@@ -108,4 +168,18 @@ body {
   background: none;
   padding: 0;
   border: none;
+}
+
+/* Code block: same background everywhere, no border, 4-space indent, horizontal scroll */
+.code-block-content,
+.code-block-content > div,
+.code-block-content code {
+  background: var(--code-bg) !important;
+  border: none !important;
+}
+.code-block-content code {
+  tab-size: 4;
+}
+.code-block-content > div {
+  overflow-x: auto;
 }

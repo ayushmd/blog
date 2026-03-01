@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { TagChips } from "@/components/TagChips";
 
 function SocialButton({
   href,
@@ -83,6 +84,7 @@ export default function Home() {
                       {post.description}
                     </p>
                   )}
+                  <TagChips tags={post.tags} />
                   <time
                     dateTime={post.date}
                     className="mt-2 block text-xs text-[var(--muted)]"

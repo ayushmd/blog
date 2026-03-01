@@ -9,10 +9,19 @@ export interface PostMeta {
   title: string;
   date: string;
   description: string;
+  tags: string[];
+  github?: string;
 }
 
 export interface Post extends PostMeta {
   content: string;
+}
+
+function parseTags(data: { tags?: unknown }): string[] {
+  const raw = data.tags;
+  if (Array.isArray(raw)) return raw.filter((t): t is string => typeof t === "string");
+  if (typeof raw === "string") return raw.split(",").map((t) => t.trim()).filter(Boolean);
+  return [];
 }
 
 export function getAllPosts(): PostMeta[] {
@@ -30,6 +39,8 @@ export function getAllPosts(): PostMeta[] {
         title: (data.title as string) ?? slug,
         date: (data.date as string) ?? "",
         description: (data.description as string) ?? "",
+        tags: parseTags(data),
+        github: typeof data.github === "string" ? data.github : undefined,
       };
     })
     .filter((p) => p.date)
@@ -47,6 +58,8 @@ export function getPostBySlug(slug: string): Post | null {
     title: (data.title as string) ?? slug,
     date: (data.date as string) ?? "",
     description: (data.description as string) ?? "",
+    tags: parseTags(data),
+    github: typeof data.github === "string" ? data.github : undefined,
     content,
   };
 }
